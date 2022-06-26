@@ -13,7 +13,7 @@ class Cocina {
 	method comidasDeLaParrila(parrillada) = parrillada.cortesDeLaParrila()
 		
 	method buenaOfertaVegetariana() = 
-	(self.cantDeCOmidasVegetarianas() - self.cantidadDeComidasCarnivoras()) == 2
+	(self.cantDeCOmidasVegetarianas() - self.cantidadDeComidasCarnivoras()) <= 2
 	
 	method cantDeCOmidasVegetarianas() = (self.comidasVegetarianas()).size()
 	method comidasVegetarianas() = comidas.filter({c => c.aptoVegetariano()})
@@ -22,7 +22,7 @@ class Cocina {
 	method comidasCarnivoras() = comidas.filter({c => not c.aptoVegetariano()})
 	
 	method platoFuerteCarnivoro() = (self.comidasCarnivoras()).max({c => c.valoracion()})
-	method comidasQueLeGustan(unComensal) = unComensal.comidasQueComio()
+	method comidasQueLeGustan(unComensal) = comidas.filter({c=>unComensal.leAgrada(c)})
 	
 	method comidaAlAzar() = comidas.anyOne()
 	

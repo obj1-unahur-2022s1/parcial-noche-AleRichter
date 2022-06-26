@@ -11,7 +11,7 @@ class Comensales {
 	method comer(unaComida) {comidasIngeridas.add(unaComida)}
 	method leAgradaComida(unaComida)
 	method comidasQueComio() = comidasIngeridas 
-	method estaSastifecho() = comidasIngeridas.all({c => c.peso() > (peso * 0.01).abs()}) and self.condicion()
+	method estaSastifecho() = comidasIngeridas.sum({c => c.peso()}) > (peso * 0.01) and self.condicion()
 	method condicion()
 } 
 
@@ -28,6 +28,6 @@ class HambrePopular inherits Comensales {
 }
 
 class PaladarFino inherits Comensales {
-	override method leAgradaComida(unaComida) = (unaComida.peso()).between(150, 200)
+	override method leAgradaComida(unaComida) = unaComida.peso().between(150, 300) && unaComida.valoracion() > 100
 	override method condicion() = (comidasIngeridas.size()).even()
 }
