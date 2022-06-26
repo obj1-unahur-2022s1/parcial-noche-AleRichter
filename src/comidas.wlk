@@ -3,17 +3,16 @@
 // ({})
 
 class Plato {
-   var property peso = 0
-   
+   method peso()
    method valoracion() 
    method aptoVegetariano()
-   method esAbundante() = peso > 250
+   method esAbundante() = self.peso() > 250
 	
 }
 
 class Provoleta inherits Plato {
 	var property tieneEspecias
-	
+	const property peso
 	override method aptoVegetariano() = not self.tieneEspecias()
 	method esEspecial() = self.esAbundante() or self.tieneEspecias()
 	override method valoracion() {
@@ -31,8 +30,8 @@ class HamburguesaCarne inherits Plato {
 	
 	override method peso() = 250
 	override method aptoVegetariano() = false
-	method valorDelPan() = pan.valor()
-	override method valoracion() = 60 + self.valorDelPan()
+
+	override method valoracion() = 60 + pan.valor()
 	
 }
 
@@ -41,11 +40,11 @@ object industrial {
 }
 
 object casero {
-	var property valor = 0
+	var property valor = 20
 }
 
 object masaMadre{
-	var property valor = 0
+	var property valor = 45
 }
 
 class HamburguesasVeguetarianas inherits HamburguesaCarne{
@@ -65,7 +64,7 @@ class Parrillada inherits Plato {
 	
 	override method peso() = cortes.sum({c => c.peso()})
 	override method aptoVegetariano() = false
-	override method valoracion() = 15 * 0.max(cortes.max({c => c.peso()}) - cortes.size())
+	override method valoracion() = 0.max(15 * cortes.max({c => c.calidad()}).calidad() - cortes.size())
 }
 
 class Cortes {
